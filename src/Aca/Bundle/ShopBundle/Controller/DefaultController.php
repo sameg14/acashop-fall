@@ -42,7 +42,7 @@ class DefaultController extends Controller
         where
             username = '$username'
             and password = '$password';";
-        
+
         $db = new Database();
         $data = $db->fetchRows($query);
 
