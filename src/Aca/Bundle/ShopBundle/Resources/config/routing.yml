@@ -10,3 +10,8 @@ aca_login_route:
 aca_login_handler:
     path: /process_login
     defaults: { _controller: AcaShopBundle:Default:processLogin }
+
+aca_login2_route:
+    path: /login_form2
+    defaults: { _controller: AcaShopBundle:Login:loginForm }
+    methods: [GET, POST]

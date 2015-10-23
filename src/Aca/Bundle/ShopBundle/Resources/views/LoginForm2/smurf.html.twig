@@ -1,0 +1,24 @@
+{#We want the form to be hidden when a person is logged in#}
+{#We want a welcome message to show up when they are logged in#}
+{#We also want a logout button to show up when they are logged in#}
+
+{% if loggedIn %}
+
+    Welcome {{ name }}
+    <form>
+        <input type="button" value="logout"/>
+    </form>
+
+{% else %}
+
+    <form action="/login_form2" method="post">
+
+        Username: <input type="text" name="username" value="{{ username }}"/>
+        <br/>
+        Password: <input type="password" name="password" value="{{ password }}"/>
+        <br/>
+
+        <input type="submit" value="Login"/>
+    </form>
+
+{% endif %}
