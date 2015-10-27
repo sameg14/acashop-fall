@@ -6,3 +6,8 @@ aca_login_route:
     path: /login_form
     defaults: { _controller: AcaShopBundle:Login:loginForm }
     methods: [GET, POST]
+
+aca_logout_route:
+    path: /logout
+    defaults: { _controller: AcaShopBundle:Login:logout }
+    methods: [POST]

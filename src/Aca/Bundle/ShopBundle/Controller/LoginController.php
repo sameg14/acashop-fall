@@ -4,6 +4,7 @@ namespace Aca\Bundle\ShopBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Aca\Bundle\ShopBundle\Db\Database;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -64,6 +65,20 @@ class LoginController extends Controller
                 'password' => $password
             )
         );
+    }
+
+    /**
+     * Handle logout business logic
+     * @return RedirectResponse
+     */
+    public function logoutAction()
+    {
+        $session = $this->getSession();
+        $session->remove('loggedIn');
+        $session->remove('name');
+        $session->save();
+
+        return new RedirectResponse('/login_form');
     }
 
     /**

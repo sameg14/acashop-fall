@@ -11,6 +11,10 @@
 
 {% else %}
 
+    {% if msg %}
+        <span style="color:red">{{ msg }}</span>
+    {% endif %}
+
     <form action="/login_form" method="post">
 
         Username: <input type="text" name="username" value="{{ username }}"/>
