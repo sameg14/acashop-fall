@@ -5,50 +5,57 @@ namespace Aca\Bundle\ShopBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Aca\Bundle\ShopBundle\Db\Database;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class LoginController extends Controller
 {
-
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function loginFormAction(Request $request)
     {
-        $session = $this->get('session');
-
         $msg = null;
-
+        $session = $this->getSession();
         $username = $request->get('username');
         $password = $request->get('password');
 
-        $query = '
-        select
-            *
-        from
-            aca_user
-        where
-            username = "' . $username . '"
-            and password = "' . $password . '"';
+        if (!empty($username) && !empty($password)) {
 
-        $db = new Database();
-        $data = $db->fetchRowMany($query);
+            $query = '
+            select
+                *
+            from
+                aca_user
+            where
+                username = "' . $username . '"
+                and password = "' . $password . '"';
 
-        if (empty($data) && !empty($username) && !empty($password)) { // Invalid login
+            $db = new Database();
+            $data = $db->fetchRowMany($query);
 
-            $msg = 'Please check your credentials';
-            $session->set('isLoggedIn', false);
+            if (empty($data) && $request->getMethod() == 'POST') { // Invalid login
+                $msg = 'Please check your credentials';
+                $session->set('loggedIn', false);
+                $session->save();
 
-        } else { // Valid login
+            } else { // Valid login
 
-            $row = array_pop($data);
-            $name = $row['name']; // person's name
+                $row = array_pop($data);
+                $name = $row['name']; // person's name
 
-            $session->set('isLoggedIn', true);
-            $session->set('name', $name);
+                $session->set('loggedIn', true);
+                $session->set('name', $name);
+            }
         }
 
-        $loggedIn = $session->get('isLoggedIn');
+        $session->save();
+
+        $loggedIn = $session->get('loggedIn');
         $name = $session->get('name');
 
         return $this->render(
-            'AcaShopBundle:LoginForm2:smurf.html.twig',
+            'AcaShopBundle:LoginForm:login-form.html.twig',
             array(
                 'loggedIn' => $loggedIn,
                 'name' => $name,
@@ -57,5 +64,20 @@ class LoginController extends Controller
                 'password' => $password
             )
         );
+    }
+
+    /**
+     * Get a vaid started session
+     * @return Session
+     */
+    private function getSession()
+    {
+        /** @var Session $session */
+        $session = $this->get('session');
+        if (!$session->isStarted()) {
+            $session->start();
+        }
+
+        return $session;
     }
 }

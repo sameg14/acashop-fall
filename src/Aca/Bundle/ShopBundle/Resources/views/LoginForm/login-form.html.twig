@@ -5,13 +5,13 @@
 {% if loggedIn %}
 
     Welcome {{ name }}
-    <form>
-        <input type="button" value="logout"/>
+    <form action="/logout" method="post">
+        <input type="submit" value="Logout"/>
     </form>
 
 {% else %}
 
-    <form action="/login_form2" method="post">
+    <form action="/login_form" method="post">
 
         Username: <input type="text" name="username" value="{{ username }}"/>
         <br/>

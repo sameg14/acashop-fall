@@ -2,16 +2,7 @@ aca_shop_homepage:
     path:     /hello/{name}/{age}
     defaults: { _controller: AcaShopBundle:Default:index }
 
-# This is a comment
 aca_login_route:
     path: /login_form
-    defaults: { _controller: AcaShopBundle:Default:loginForm }
-
-aca_login_handler:
-    path: /process_login
-    defaults: { _controller: AcaShopBundle:Default:processLogin }
-
-aca_login2_route:
-    path: /login_form2
     defaults: { _controller: AcaShopBundle:Login:loginForm }
     methods: [GET, POST]
