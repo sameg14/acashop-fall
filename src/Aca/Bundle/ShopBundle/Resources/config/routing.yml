@@ -1,5 +1,5 @@
 aca_shop_homepage:
-    path:     /hello/{name}/{age}
+    path:     /
     defaults: { _controller: AcaShopBundle:Default:index }
 
 aca_login_route:

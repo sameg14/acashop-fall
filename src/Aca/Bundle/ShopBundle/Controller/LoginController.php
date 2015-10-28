@@ -2,8 +2,8 @@
 
 namespace Aca\Bundle\ShopBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Aca\Bundle\ShopBundle\Db\Database;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -25,20 +25,20 @@ class LoginController extends Controller
 
             $query = '
             select
-                *
+                u.*
             from
-                aca_user
+                aca_user u
             where
-                username = "' . $username . '"
-                and password = "' . $password . '"';
+                u.username = "' . $username . '"
+                and u.password = "' . $password . '"';
 
             $db = new Database();
             $data = $db->fetchRowMany($query);
 
             if (empty($data) && $request->getMethod() == 'POST') { // Invalid login
+
                 $msg = 'Please check your credentials';
                 $session->set('loggedIn', false);
-                $session->save();
 
             } else { // Valid login
 
@@ -78,7 +78,7 @@ class LoginController extends Controller
         $session->remove('name');
         $session->save();
 
-        return new RedirectResponse('/login_form');
+        return new RedirectResponse('/');
     }
 
     /**
