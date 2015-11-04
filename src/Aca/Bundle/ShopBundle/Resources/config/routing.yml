@@ -11,3 +11,13 @@ aca_logout_route:
     path: /logout
     defaults: { _controller: AcaShopBundle:Login:logout }
     methods: [POST]
+
+aca_products:
+    path: /products
+    defaults: { _controller: AcaShopBundle:Product:showAll }
+    methods: [GET]
+
+aca_product_detail:
+    path: /products/detail/{slug}
+    defaults: { _controller: AcaShopBundle:Product:showOne }
+    methods: [GET]

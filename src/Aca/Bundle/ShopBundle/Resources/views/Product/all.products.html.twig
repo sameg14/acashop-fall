@@ -1,0 +1,35 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+    <h3>All Products</h3>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Picture</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for product in products %}
+
+            <tr>
+                <td><img src="{{ product.image }}" height="200px" width="100px"/></td>
+                <td>
+                    <a href="/products/detail/{{ product.slug }}">
+                        {{ product.name }}
+                    </a>
+                </td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.price }}</td>
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+{% endblock %}
