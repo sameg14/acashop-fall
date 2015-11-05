@@ -15,7 +15,7 @@ class ProductController extends Controller
      */
     public function showAllAction()
     {
-        $db = new Database();
+        $db = $this->get('acadb');
 
         // 1. Write a query to get all products
         $query = "select * from aca_product";
@@ -42,11 +42,17 @@ class ProductController extends Controller
      */
     public function showOneAction($slug)
     {
-        $db = new Database();
+        $db = $this->get('acadb');
 
-        $query = 'select * from aca_product where slug = "' . $slug . '"';
-        $product = $db->fetchRowMany($query);
-        $product = $product[0];
+        $query = '
+        select
+            *
+        from
+            aca_product
+        where
+            slug = :mySlug';
+
+        $product = $db->fetchRow($query, array('mySlug' => $slug));
 
         return $this->render(
             'AcaShopBundle:Product:product.detail.html.twig',
