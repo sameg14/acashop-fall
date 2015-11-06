@@ -1,6 +1,23 @@
 {% extends "::base.html.twig" %}
 
 {% block content %}
+
+    <!-- Create an add to cart form -->
+    <form action="/cart" method="post">
+        <input type="hidden" name="product_id" value="{{ product.id }}"/>
+        <input type="text" name="quantity"/>
+        <input type="submit" value="Add to Cart"/>
+    </form>
+
+
+    <!--
+    Timebox: 5 minutes
+
+    Create the /add_cart route
+    Create a controller method
+    Receive the product_id and quantity fields in the method
+    -->
+
     <h3>{{ product.name }} <span style="color:red;">${{ product.price }}</span></h3>
 
     <br/>

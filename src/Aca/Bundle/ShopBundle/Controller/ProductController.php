@@ -52,12 +52,13 @@ class ProductController extends Controller
         where
             slug = :mySlug';
 
-        $product = $db->fetchRow($query, array('mySlug' => $slug));
+        $dbProduct = $db->fetchRow($query, array('mySlug' => $slug));
 
         return $this->render(
             'AcaShopBundle:Product:product.detail.html.twig',
             array(
-                'product' => $product
+                'product' => $dbProduct,
+                'name' => 'Alex'
             )
         );
     }

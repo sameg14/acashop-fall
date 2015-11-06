@@ -6,3 +6,7 @@ services:
    acadb:
       class: Simplon\Mysql\Mysql
       arguments: [%database_host%, %database_user%, %database_password%, %database_name%]
+
+   cart:
+      class: Aca\Bundle\ShopBundle\Service\CartService
+      arguments: [@acadb, @session]

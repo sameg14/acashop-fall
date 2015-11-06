@@ -44,9 +44,11 @@ class LoginController extends Controller
 
                 $row = array_pop($data);
                 $name = $row['name']; // person's name
+                $userId = $row['user_id'];
 
                 $session->set('loggedIn', true);
                 $session->set('name', $name);
+                $session->set('user_id', $userId);
             }
         }
 
@@ -89,6 +91,7 @@ class LoginController extends Controller
     {
         /** @var Session $session */
         $session = $this->get('session');
+
         if (!$session->isStarted()) {
             $session->start();
         }

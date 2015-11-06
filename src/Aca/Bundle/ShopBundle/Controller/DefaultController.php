@@ -2,7 +2,6 @@
 
 namespace Aca\Bundle\ShopBundle\Controller;
 
-use Aca\Bundle\ShopBundle\Db\Database;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 

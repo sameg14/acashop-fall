@@ -21,3 +21,13 @@ aca_product_detail:
     path: /products/detail/{slug}
     defaults: { _controller: AcaShopBundle:Product:showOne }
     methods: [GET]
+
+aca_cart:
+    path: /cart
+    defaults: { _controller: AcaShopBundle:Cart:showCart }
+    methods: [GET]
+
+aca_cart_add:
+    path: /cart
+    defaults: { _controller: AcaShopBundle:Cart:addCart }
+    methods: [POST]
