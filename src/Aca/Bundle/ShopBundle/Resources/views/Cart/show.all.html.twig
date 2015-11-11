@@ -3,4 +3,44 @@
 {% block content %}
     <h3>Shopping Cart</h3>
 
+    <table class="table" style="width:100%;">
+        <thead>
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+
+
+        {% for cartProduct in cartProducts %}
+
+            <tr>
+                <td><img src="{{ cartProduct.image }}" height="100px"/></td>
+                <td>
+                    {{ cartProduct.name }}
+                </td>
+                <td>{{ cartProduct.price }}</td>
+                <td>
+
+                    <form name="quantityForm" action="/update_cart_qty" method="post">
+                        <input type="hidden" name="cart_product_id" value="{{ cartProduct.id }}"/>
+                        <input type="text" size="3" name="qty" value="{{ cartProduct.qty }}"/>
+                        <input type="submit" value="Update" class="button btn-primary"/>
+                    </form>
+
+                    <form name="deleteForm" action="/delete_cart_item" method="post">
+                        <input type="hidden" name="cart_product_id" value="{{ cartProduct.id }}"/>
+                        <input type="submit" value="Delete" class="button btn-danger"/>
+                    </form>
+
+                </td>
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+
 {% endblock %}
