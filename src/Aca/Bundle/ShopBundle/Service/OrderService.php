@@ -68,11 +68,12 @@ class OrderService
     {
         $userId = $this->session->get('user_id');
 
-        return $this->db->insert('aca_order',
-            array(
-                'user_id' => $userId,
-                'order_date' => 'now()'
-            )
-        );
+        $query = '
+        insert into
+            aca_order (user_id, order_date)
+        values
+            ('.$userId.', NOW())';
+
+        return $this->db->executeSql($query);
     }
 }

@@ -3,6 +3,7 @@
 namespace Aca\Bundle\ShopBundle\Service;
 
 use Simplon\Mysql\Mysql;
+use Aca\Bundle\ShopBundle\Model\Cart as CartModel;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class CartService
@@ -19,10 +20,16 @@ class CartService
      */
     protected $session;
 
-    public function __construct(Mysql $db, Session $session)
+    /**
+     * @var CartModel
+     */
+    protected $cartModel;
+
+    public function __construct(Mysql $db, Session $session, CartModel $cart)
     {
         $this->db = $db;
         $this->session = $session;
+        $this->cartModel = $cart;
     }
 
     /**
@@ -103,27 +110,7 @@ class CartService
      */
     public function getAllCartProducts()
     {
-        $query = '
-        select
-            cp.id,
-            p.id as product_id,
-            p.name,
-            p.description,
-            p.image,
-            cp.unit_price as price,
-            cp.qty
-        from
-            aca_cart_product as cp
-            inner join aca_product as p on (p.id = cp.product_id)
-            left join aca_cart as c on (c.id = cp.cart_id)
-        where
-            cp.cart_id = :myCartId';
-
-        return $this->db->fetchRowMany($query,
-            array(
-                'myCartId' => $this->getCartId()
-            )
-        );
+        return $this->cartModel->getAllCartProducts($this->getCartId());
     }
 
     /**

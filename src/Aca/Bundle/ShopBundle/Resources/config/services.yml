@@ -9,7 +9,11 @@ services:
 
    cart:
       class: Aca\Bundle\ShopBundle\Service\CartService
-      arguments: [@acadb, @session]
+      arguments: [@acadb, @session, @model.cart]
+
+   model.cart:
+      class: Aca\Bundle\ShopBundle\Model\Cart
+      arguments: [@acadb]
 
    order:
       class: Aca\Bundle\ShopBundle\Service\OrderService
