@@ -31,3 +31,8 @@ aca_cart_add:
     path: /cart
     defaults: { _controller: AcaShopBundle:Cart:addCart }
     methods: [POST]
+
+aca_place_order:
+    path: /place_order
+    defaults: { _controller: AcaShopBundle:Order:placeOrder }
+    methods: [POST]

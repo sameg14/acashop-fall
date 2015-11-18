@@ -56,7 +56,7 @@ class CartService
      */
     protected function getProductPrice($productId)
     {
-        $query = 'select price from aca_product where id = "' . $productId . '"';
+        $query = 'select price from aca_product where id = "'.$productId.'"';
 
         $row = $this->db->fetchRow($query);
 
@@ -106,6 +106,7 @@ class CartService
         $query = '
         select
             cp.id,
+            p.id as product_id,
             p.name,
             p.description,
             p.image,
@@ -123,5 +124,19 @@ class CartService
                 'myCartId' => $this->getCartId()
             )
         );
+    }
+
+    /**
+     * Delete a shopping cart. Because SRP
+     * @see https://en.wikipedia.org/wiki/Single_responsibility_principle
+     * @throws \Exception
+     */
+    public function nixCart()
+    {
+        $cartId = $this->getCartId();
+
+        $this->db->delete('aca_cart_product', array('cart_id' => $cartId));
+
+        $this->db->delete('aca_cart', array('id' => $cartId));
     }
 }
